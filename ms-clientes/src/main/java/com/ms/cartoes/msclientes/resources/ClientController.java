@@ -4,6 +4,7 @@ import com.ms.cartoes.msclientes.entities.Client;
 import com.ms.cartoes.msclientes.resources.dtos.ClientRegisterRequest;
 import com.ms.cartoes.msclientes.services.ClientService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/clients")
 @RequiredArgsConstructor
@@ -39,6 +41,7 @@ public class ClientController {
 
     @GetMapping("/status")
     public String status() {
+        log.info("Verificando status do ms de clients");
         return "MS-CLIENT - OK";
     }
 
