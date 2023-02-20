@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity register(@RequestBody CardRegisterRequest request) {
+    public ResponseEntity register(@RequestBody @Valid CardRegisterRequest request) {
         final Card card = request.toCard();
         cardService.save(card);
         return ResponseEntity.status(HttpStatus.CREATED).build();
