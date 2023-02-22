@@ -1,9 +1,8 @@
 package com.ms.cartoes.msavaliadorcredito.resources;
 
-import com.ms.cartoes.msavaliadorcredito.domain.ClientCreditRatingResponse;
-import com.ms.cartoes.msavaliadorcredito.domain.ClientSituation;
-import com.ms.cartoes.msavaliadorcredito.domain.RatingData;
+import com.ms.cartoes.msavaliadorcredito.domain.*;
 import com.ms.cartoes.msavaliadorcredito.services.CreditRatingService;
+import com.ms.cartoes.msavaliadorcredito.services.exceptions.CardIssuanceException;
 import com.ms.cartoes.msavaliadorcredito.services.exceptions.ClientNotFoundException;
 import com.ms.cartoes.msavaliadorcredito.services.exceptions.ServiceComunicationErrorException;
 import lombok.RequiredArgsConstructor;

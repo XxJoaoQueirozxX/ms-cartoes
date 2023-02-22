@@ -3,6 +3,8 @@ package com.ms.cartoes.msavaliadorcredito.services;
 import com.ms.cartoes.msavaliadorcredito.clients.CardResourceClient;
 import com.ms.cartoes.msavaliadorcredito.clients.ClientResourceClient;
 import com.ms.cartoes.msavaliadorcredito.domain.*;
+import com.ms.cartoes.msavaliadorcredito.msqueue.CardIssuancePublisher;
+import com.ms.cartoes.msavaliadorcredito.services.exceptions.CardIssuanceException;
 import com.ms.cartoes.msavaliadorcredito.services.exceptions.ClientNotFoundException;
 import com.ms.cartoes.msavaliadorcredito.services.exceptions.ServiceComunicationErrorException;
 import feign.FeignException;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +24,8 @@ public class CreditRatingService {
 
     private final ClientResourceClient clientResourceClient;
     private final CardResourceClient cardResourceClient;
+    private final CardIssuancePublisher cardIssuancePublisher;
+
 
 
     public ClientSituation getClientSituation(final String cpf) throws ClientNotFoundException, ServiceComunicationErrorException {
@@ -68,4 +73,16 @@ public class CreditRatingService {
             throw new ServiceComunicationErrorException(e.getMessage(), status);
         }
     }
+
+    public CardIssuanceProtocol requestCardIssuance(CardIssuanceRequestData data) {
+        try {
+            cardIssuancePublisher.requestCardIssuance(data);
+            final String protocolNumber = UUID.randomUUID().toString();
+            return new CardIssuanceProtocol(protocolNumber);
+        } catch (Exception e) {
+            throw new CardIssuanceException(e.getMessage());
+        }
+    }
+
+
 }
