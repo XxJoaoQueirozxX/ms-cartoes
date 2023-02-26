@@ -15,7 +15,7 @@ public class ClientRegisterRequest {
     @NotBlank(message = "{client.register.request.name.notblank}")
     private String name;
 
-    private String age;
+    private Integer age;
 
     public Client toClient() {
         return new Client(cpf, name, age);

@@ -18,14 +18,14 @@ public class Client {
     private Long id;
     private String cpf;
     private String name;
-    private String age;
+    private Integer age;
 
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
     @UpdateTimestamp
     private LocalDateTime updateTimestamp;
 
-    public Client(String cpf, String name, String age) {
+    public Client(String cpf, String name, Integer age) {
         this.cpf = cpf;
         this.name = name;
         this.age = age;
