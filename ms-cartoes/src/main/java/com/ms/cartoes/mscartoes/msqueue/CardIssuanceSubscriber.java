@@ -8,12 +8,14 @@ import com.ms.cartoes.mscartoes.entities.ClientCard;
 import com.ms.cartoes.mscartoes.repositories.CardRepository;
 import com.ms.cartoes.mscartoes.repositories.ClientCardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class CardIssuanceSubscriber {
 
     private final CardRepository cardRepository;
@@ -32,7 +34,7 @@ public class CardIssuanceSubscriber {
             clientCard.setLimit(cardIssuanceRequestData.getLimitApproved());
             clientCardRepository.save(clientCard);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error to receive card issuance: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
